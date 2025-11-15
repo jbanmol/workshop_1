@@ -1,0 +1,23 @@
+{
+  "hash": "c104b959",
+  "browserHash": "901030fe",
+  "optimized": {
+    "preact": {
+      "src": "../../node_modules/preact/dist/preact.module.js",
+      "file": "preact.js",
+      "fileHash": "474adab5",
+      "needsInterop": false
+    },
+    "preact/hooks": {
+      "src": "../../node_modules/preact/hooks/dist/hooks.module.js",
+      "file": "preact_hooks.js",
+      "fileHash": "351c45a3",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-R3XLUQFX": {
+      "file": "chunk-R3XLUQFX.js"
+    }
+  }
+}
