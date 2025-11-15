@@ -1,0 +1,79 @@
+name: CleanBrowse CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test-extension:
+    name: Build and Test Extension
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'extension/package-lock.json'
+
+      - name: Install Frontend Dependencies
+        working-directory: ./extension
+        run: npm install
+
+      - name: Run Linter (Placeholder)
+        working-directory: ./extension
+        # TODO: Add a lint script to package.json, e.g., "lint": "eslint ."
+        run: echo "--> Linting step placeholder"
+
+      - name: Run Tests (Placeholder)
+        working-directory: ./extension
+        # TODO: Add a test script to package.json, e.g., "test": "jest"
+        run: echo "--> Testing step placeholder"
+
+      - name: Build Extension
+        working-directory: ./extension
+        run: npm run build
+
+      - name: Package Extension for Release
+        run: |
+          echo "Packaging extension..."
+          cd extension
+          # Create a ZIP file containing all necessary files for the Chrome Web Store
+          # This includes the built assets from 'dist' and the static files.
+          zip -r ../cleanbrowse-extension.zip dist/ manifest.json rules/ icons/ src/background.js
+
+      - name: Upload Extension Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: cleanbrowse-extension
+          path: cleanbrowse-extension.zip
+
+  test-backend:
+    name: Test Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'backend/package-lock.json'
+
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run Backend Tests (Placeholder)
+        working-directory: ./backend
+        # TODO: Add a test script, e.g., "test": "jest"
+        run: echo "--> Backend testing step placeholder"
